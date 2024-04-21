@@ -11,8 +11,8 @@ public class GameApp {
     private static final char DOT_HUMAN = 'X';
     private static final char DOT_AI = '0';
     private static final char DOT_EMPTY = '*';
-    private static final int fieldSizeX = 5;
-    private static final int fieldSizeY = 5;
+    private static final int fieldSizeX = 3;
+    private static final int fieldSizeY = 3;
     private static char[][] field;
 
     public static void main(String[] args) {
