@@ -7,8 +7,8 @@ public class GameApp {
     private static final char DOT_HUMAN = 'X';
     private static final char DOT_AI = '0';
     private static final char DOT_EMPTY = '*';
-    private static final int fieldSizeX = 5; // Измените размер поля здесь
-    private static final int fieldSizeY = 5; // Измените размер поля здесь
+    private static final int fieldSizeX = 5;
+    private static final int fieldSizeY = 5;
     private static char[][] field;
 
     public static void main(String[] args) {
