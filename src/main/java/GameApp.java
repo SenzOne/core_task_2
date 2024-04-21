@@ -110,16 +110,11 @@ public class GameApp {
      */
     static void aiTurn() {
         String turn = getCountMark(DOT_HUMAN);
+        String[] strings =  turn.split("#");
 
-        switch (turn) {
-            case "horizontal1" -> horizontal(1);
-            case "horizontal2" -> horizontal(2);
-            case "horizontal3" -> horizontal(3);
-            case "horizontal4" -> horizontal(4);
-            case "vertical1" -> vertical(1);
-            case "vertical2" -> vertical(2);
-            case "vertical3" -> vertical(3);
-            case "vertical4" -> vertical(4);
+        switch (strings[0]) {
+            case "horizontal" -> horizontal(Integer.parseInt(strings[1]));
+            case "vertical" -> vertical(Integer.parseInt(strings[1]));
             case "mainDiagonal" -> mainDiagonal();
             case "diagonal" -> diagonal();
             default -> randomTurn();
@@ -238,8 +233,8 @@ public class GameApp {
 
         // Заполнение map с подсчетами
         for (int i = 0; i < fieldSizeX; i++) {
-            resMap.put("horizontal" + (i + 1), horizontalMarksCount[i]);
-            resMap.put("vertical" + (i + 1), verticalMarksCount[i]);
+            resMap.put("horizontal" + "#" + (i + 1), horizontalMarksCount[i]);
+            resMap.put("vertical" + "#" + (i + 1), verticalMarksCount[i]);
         }
         resMap.put("mainDiagonal", mainDiagonalMarksCount);
         resMap.put("diagonal", diagonalMarksCount);
