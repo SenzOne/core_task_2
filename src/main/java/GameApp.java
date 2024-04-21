@@ -7,7 +7,7 @@ public class GameApp {
 
     private static final Scanner scanner = new Scanner(System.in);
     private static final Random random = new Random();
-    private static final int WIN_COUNT = 3;
+    private static final int WIN_COUNT = 4;
     private static final char DOT_HUMAN = 'X';
     private static final char DOT_AI = '0';
     private static final char DOT_EMPTY = '*';
@@ -151,25 +151,27 @@ public class GameApp {
      * @param dot фишка игрока
      */
     static boolean checkWin(char dot) {
+
         // Проверка победы по горизонталям
         for (int i = 0; i < fieldSizeX; i++) {
-            if (field[i][0] == dot && field[i][1] == dot && field[i][2] == dot) {
+            if (field[i][0] == dot && field[i][1] == dot && field[i][2] == dot && field[i][3] == dot) {
                 return true;
             }
         }
 
         // Проверка победы по вертикалям
         for (int j = 0; j < fieldSizeY; j++) {
-            if (field[0][j] == dot && field[1][j] == dot && field[2][j] == dot) {
+            if (field[0][j] == dot && field[1][j] == dot && field[2][j] == dot && field[3][j] == dot) {
                 return true;
             }
         }
 
         // Проверка победы по диагоналям
-        if ((field[0][0] == dot && field[1][1] == dot && field[2][2] == dot) ||
-            (field[0][2] == dot && field[1][1] == dot && field[2][0] == dot)) {
+        if ((field[0][0] == dot && field[1][1] == dot && field[2][2] == dot && field[3][3] == dot) ||
+            (field[0][3] == dot && field[1][2] == dot && field[2][1] == dot && field[3][0] == dot)) {
             return true;
         }
+
         return false;
     }
 
@@ -203,7 +205,7 @@ public class GameApp {
     static void diagonal() {
         for (int i = 0; i < fieldSizeX; i++) {
             while (isCellEmpty(i, i)) {
-                field[i][2 - i] = DOT_AI;
+                field[i][(WIN_COUNT - 1) - i] = DOT_AI;
                 return;
             }
         }
