@@ -11,8 +11,8 @@ public class GameApp {
     private static final char DOT_HUMAN = 'X';
     private static final char DOT_AI = '0';
     private static final char DOT_EMPTY = '*';
-    private static final int fieldSizeX = 3;
-    private static final int fieldSizeY = 3;
+    private static final int fieldSizeX = 4;
+    private static final int fieldSizeY = 4;
     private static char[][] field;
 
     public static void main(String[] args) {
@@ -115,9 +115,11 @@ public class GameApp {
             case "horizontal1" -> horizontal(1);
             case "horizontal2" -> horizontal(2);
             case "horizontal3" -> horizontal(3);
+            case "horizontal4" -> horizontal(4);
             case "vertical1" -> vertical(1);
             case "vertical2" -> vertical(2);
             case "vertical3" -> vertical(3);
+            case "vertical4" -> vertical(4);
             case "mainDiagonal" -> mainDiagonal();
             case "diagonal" -> diagonal();
             default -> randomTurn();
