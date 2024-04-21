@@ -11,8 +11,8 @@ public class GameApp {
     private static final char DOT_HUMAN = 'X';
     private static final char DOT_AI = '0';
     private static final char DOT_EMPTY = '*';
-    private static final int fieldSizeX = 3;
-    private static final int fieldSizeY = 3;
+    private static final int fieldSizeX = 5;
+    private static final int fieldSizeY = 5;
     private static char[][] field;
 
     public static void main(String[] args) {
@@ -51,23 +51,24 @@ public class GameApp {
     /**
      * Печать текущего состояния игрового поля
      */
-    static void printField() {
+
+    static void printField(){
         System.out.print("+");
-        for (int x = 0; x < fieldSizeX; x++) {
+        for(int x = 0; x < fieldSizeX; x++){
             System.out.print("-" + (x + 1));
         }
         System.out.println("-");
 
 
-        for (int x = 0; x < fieldSizeX; x++) {
+        for(int x = 0; x < fieldSizeX; x++){
             System.out.print(x + 1 + "|");
-            for (int y = 0; y < fieldSizeY; y++) {
+            for (int y = 0; y < fieldSizeY; y++){
                 System.out.print(field[x][y] + "|");
             }
             System.out.println();
         }
 
-        for (int x = 0; x < fieldSizeX * 2 + 2; x++) {
+        for(int x = 0; x < fieldSizeX * 2 + 2; x++){
             System.out.print("-");
         }
         System.out.println();
@@ -161,7 +162,7 @@ public class GameApp {
         }
 
         // Проверка победы по вертикалям
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < fieldSizeY; j++) {
             if (field[0][j] == dot && field[1][j] == dot && field[2][j] == dot) {
                 return true;
             }
@@ -175,49 +176,10 @@ public class GameApp {
         return false;
     }
 
-//    static String getCountMark(char dot) {
-//        Map<String, Integer> resMap = new HashMap<>();
-//        // Счетчик поставленных меток по горизонталям
-//        int[] horizontalMarksCount = new int[fieldSizeX];
-//        int[] verticalMarksCount = new int[fieldSizeY];
-//        for (int i = 0; i < fieldSizeX; i++) {
-//            for (int j = 0; j < fieldSizeY; j++) {
-//                if (field[i][j] == dot) {
-//                    horizontalMarksCount[i]++;
-//                    verticalMarksCount[j]++;
-//                }
-//            }
-//            resMap.put("horizontal" + (i + 1), horizontalMarksCount[i]);
-//            resMap.put("vertical" + (i + 1), verticalMarksCount[i]);
-//        }
-//
-//        // Счетчик поставленных меток по диагоналям
-//        int mainDiagonalMarksCount = 0;
-//        for (int i = 0; i < fieldSizeX; i++) {
-//            if (field[i][i] == dot) {
-//                mainDiagonalMarksCount++;
-//            }
-//        }
-//        resMap.put("mainDiagonal", mainDiagonalMarksCount);
-//
-//        int diagonalMarksCount = 0;
-//        for (int i = 0; i < fieldSizeX; i++) {
-//            if (field[i][2 - i] == dot) {
-//                diagonalMarksCount++;
-//            }
-//        }
-//        resMap.put("diagonal", diagonalMarksCount);
-//
-//        System.out.println(resMap);
-//        String res = resMap.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).get();
-//        System.out.println(res);
-//        return res;
-//    }
-//
     static void horizontal(int row) {
         for (int x = 0; x < fieldSizeX; x++) {
-            while (isCellEmpty(x, row)) {
-                field[x][row] = DOT_AI;
+            while (isCellEmpty(row -1, x)) {
+                field[row -1][x] = DOT_AI;
                 return;
             }
         }
@@ -279,16 +241,7 @@ public class GameApp {
         }
         resMap.put("mainDiagonal", mainDiagonalMarksCount);
         resMap.put("diagonal", diagonalMarksCount);
-
-        // Выбор стратегии хода на основе подсчетов
-        String res = resMap.entrySet().stream()
-                .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse("random");
-
-        System.out.println(resMap);
-        System.out.println(res);
-        return res;
+        return resMap.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse("random");
     }
 
 
@@ -309,60 +262,4 @@ public class GameApp {
         }
         return false; // Игра продолжается
     }
-
-//    public static void main(String[] args) {
-//        initialize();
-//        printField();
-//    }
-//
-//    static void initialize() {
-//        field = new char[fieldSizeX][fieldSizeY];
-//        for (int x = 0; x < fieldSizeX; x++) {
-//            for (int y = 0; y < fieldSizeY; y++) {
-//                field[x][y] = DOT_EMPTY;
-//            }
-//        }
-//    }
-//
-//    static void printField() {
-//        // Выводим верхнюю границу поля
-//        printSep();
-//
-//        // Выводим подписи к столбцам
-//        System.out.print("|" + "  " + " |");
-//        for (int i = 1; i < fieldSizeX + 1; i++) {
-//            System.out.print(" " + i + " |");
-//        }
-//        System.out.println();
-//
-//        // Выводим разделитель между подписями и содержимым поля
-//        printSep();
-//
-//        // Выводим содержимое поля
-//        for (int x = 0; x < fieldSizeX; x++) {
-//            System.out.print("| " + (x + 1) + " |"); // Выводим номер строки
-//            for (int y = 0; y < fieldSizeY; y++) {
-//                System.out.print(" " + field[x][y] + " |");
-//            }
-//            System.out.println();
-//
-//            // Выводим разделитель между строками
-//            if (x < fieldSizeX - 1) {
-//                printSep();
-//            }
-//        }
-//        printSep();
-//
-//
-//    }
-//    static void printSep() {
-//        System.out.print("+");
-//        for (int i = 0; i < fieldSizeX + 1; i++) {
-//            System.out.print("---+");
-//        }
-//        System.out.println();
-//    }
-    // проверка первого столбца - [x][0]
-
-
 }
